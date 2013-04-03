@@ -47,9 +47,18 @@ object P5 extends App {
 		(primes zip arr).map(a=>pow(BigInt(a._1),a._2)).reduceLeft(_*_)
 	}
 
+	def lcm_(arr: Array[Int], guess: Int): Int = {
+		if(arr.map(guess % _ == 0).reduceLeft(_&&_)) guess else lcm_(arr,guess+1)
+	}
+	def lcm(arr: Array[Int]): Int = {
+		lcm_(arr,1)
+	}
 	override def main(args: Array[String]) {
+		//Efficient method calculating the prime factorizations
 		println(
-			evalFactorization(Range(2,20,1).map( factorization _ compose (a=>BigInt(a))).reduceLeft((a,b) => max(a,b)))
+			evalFactorization(Range(2,21,1).map( factorization _ compose (a=>BigInt(a))).reduceLeft((a,b) => max(a,b)))
 			)
+		//Naive solution
+		//println(lcm(Range(2,21,1).toArray))
 	}
 }
